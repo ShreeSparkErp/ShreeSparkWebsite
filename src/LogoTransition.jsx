@@ -1,83 +1,78 @@
-// Full-screen "AI technology" logo build, shown when a header link is clicked.
-// No card / boxes: the official logo (transparent PNG) is assembled directly on
-// an animated tech backdrop: grid, circuit traces, converging data particles,
-// a scanning beam, glitch-materialising icon pieces and a decoded wordmark.
-// Each piece is the same image clipped to one part, so it's always the real logo.
+// Shree Spark logo loader, shown when an in-page link is clicked:
+// the "S" is drawn in outline, fills with the logo colours, the spark star
+// ignites and the wordmark appears. Then it fades out over the new section.
 
-const LOGO_SRC = '/logo-full-transparent.png'
-
-// Clip regions in % of the square logo image
-const PIECES = [
-  { name: 'base',  clip: 'polygon(37.5% 33.75%, 58.75% 44.5%, 58.75% 47.5%, 37.5% 47.5%)' },
-  { name: 'top',   clip: 'polygon(37.5% 19.4%, 54.1% 19.4%, 54.1% 26.9%, 58.75% 26.9%, 58.75% 44.5%, 37.5% 33.75%)' },
-  { name: 'star',  clip: 'polygon(54.5% 18.1%, 62.5% 18.1%, 62.5% 26.25%, 54.5% 26.25%)' },
-  { name: 'shree', clip: 'polygon(12.2% 48.1%, 51.125% 48.1%, 50.75% 51.875%, 51% 53.75%, 49.81% 56.56%, 49.44% 58.44%, 49.44% 61.9%, 12.2% 61.9%)' },
-  { name: 'spark', clip: 'polygon(51.125% 48.1%, 88.75% 48.1%, 88.75% 61.5%, 49.44% 61.5%, 49.44% 58.44%, 49.81% 56.56%, 51% 53.75%, 50.75% 51.875%)' },
-  { name: 'info',  clip: 'polygon(22.5% 62.2%, 75.6% 62.2%, 75.6% 67.8%, 22.5% 67.8%)' },
-]
-
-// Circuit traces running from the screen edges toward the logo (viewBox 1600 x 900)
-const TRACES = [
-  { d: 'M0,190 H290 L370,270 H560', end: [560, 270] },
-  { d: 'M0,520 H220 L300,440 H540', end: [540, 440] },
-  { d: 'M0,760 H320 L420,660 H600', end: [600, 660] },
-  { d: 'M1600,170 H1320 L1230,260 H1040', end: [1040, 260] },
-  { d: 'M1600,470 H1380 L1300,420 H1060', end: [1060, 420] },
-  { d: 'M1600,740 H1300 L1200,640 H1000', end: [1000, 640] },
-  { d: 'M640,0 V120 L700,180 V240', end: [700, 240] },
-  { d: 'M980,900 V790 L920,730 V690', end: [920, 690] },
-]
-
-// Data particles flying in toward the centre
-const PARTICLES = Array.from({ length: 22 }, (_, i) => {
-  const angle = (i / 22) * Math.PI * 2 + (i % 2 ? 0.2 : -0.1)
-  const dist = 360 + (i % 5) * 70
-  return {
-    tx: Math.round(Math.cos(angle) * dist) + 'px',
-    ty: Math.round(Math.sin(angle) * dist * 0.62) + 'px',
-    delay: ((i % 7) * 0.06).toFixed(2) + 's',
-  }
-})
-
-export default function LogoTransition({ label, x = '50%', y = '0%' }) {
+export default function LogoTransition() {
   return (
-    <div className="logo-transition" style={{ '--lt-x': x, '--lt-y': y }} aria-hidden="true">
+    <div className="logo-transition" aria-hidden="true">
       <div className="lt-curtain" />
-      <div className="ai-grid" />
-
-      <svg className="ai-circuits" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-        {TRACES.map((t, i) => (
-          <g key={i} style={{ '--i': i }}>
-            <path className="ai-trace" d={t.d} pathLength="1" />
-            <path className="ai-pulse" d={t.d} pathLength="1" />
-            <circle className="ai-node" cx={t.end[0]} cy={t.end[1]} r="5" />
-          </g>
-        ))}
-      </svg>
-
-      <div className="ai-particles">
-        {PARTICLES.map((p, i) => (
-          <i key={i} style={{ '--tx': p.tx, '--ty': p.ty, animationDelay: p.delay }} />
-        ))}
-      </div>
-
       <div className="lt-stage">
-        <div className="ai-halo" />
-        <div className="lt-art">
-          {PIECES.map((p) => (
-            <span key={p.name} className={`lt-piece lt-${p.name}`}>
-              <img src={LOGO_SRC} alt="" style={{ clipPath: p.clip }} draggable="false" />
+        <div className="shree-logo-create">
+          <svg className="shree-spark-svg" viewBox="0 0 395 470" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              {/* Lower facet: logo navy */}
+              <linearGradient id="ltNavyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#3D57A3" />
+                <stop offset="55%" stopColor="#2E4382" />
+                <stop offset="100%" stopColor="#233465" />
+              </linearGradient>
+              {/* Main sweeping S body: logo cerulean */}
+              <linearGradient id="ltBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#1AA3E3" />
+                <stop offset="50%" stopColor="#008DD2" />
+                <stop offset="100%" stopColor="#0A72AE" />
+              </linearGradient>
+              <radialGradient id="ltStarGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#FFFFFF" />
+                <stop offset="40%" stopColor="#9AD8F6" />
+                <stop offset="75%" stopColor="#1AA3E3" />
+                <stop offset="100%" stopColor="transparent" />
+              </radialGradient>
+            </defs>
+
+            {/* 1. Lower facet: outline draw, then fill */}
+            <path
+              className="lt-draw lt-draw-base"
+              pathLength="100"
+              d="M11,288 L216,394 L225,399 L231,408 L231,415 L223,426 L162,455 L141,458 L127,453 L24,397 L15,389 L10,374 L11,289 Z"
+            />
+            <path
+              className="lt-fill lt-fill-base"
+              fill="url(#ltNavyGrad)"
+              d="M11,288 L216,394 L225,399 L231,408 L231,415 L223,426 L162,455 L141,458 L127,453 L24,397 L15,389 L10,374 L11,289 Z"
+            />
+
+            {/* 2. Main S body: outline draw, then fill */}
+            <path
+              className="lt-draw lt-draw-body"
+              pathLength="100"
+              d="M217,41 L226,42 L230,48 L231,123 L227,137 L214,150 L130,190 L283,265 L293,273 L301,287 L301,363 L298,370 L293,373 L281,370 L21,237 L12,226 L10,165 L15,150 L22,143 L216,42 Z"
+            />
+            <path
+              className="lt-fill lt-fill-body"
+              fill="url(#ltBlueGrad)"
+              d="M217,41 L226,42 L230,48 L231,123 L227,137 L214,150 L130,190 L283,265 L293,273 L301,287 L301,363 L298,370 L293,373 L281,370 L21,237 L12,226 L10,165 L15,150 L22,143 L216,42 Z"
+            />
+
+            {/* 3. Spark star */}
+            <g className="lt-star">
+              <circle cx="324" cy="69" r="30" fill="url(#ltStarGlow)" className="lt-star-halo" />
+              <path
+                fill="url(#ltBlueGrad)"
+                d="M324,10 L336,46 L353,59 L383,69 L357,76 L344,84 L333,101 L324,128 L316,99 L311,91 L294,79 L265,69 L286,64 L301,57 L312,44 L324,11 Z"
+              />
+            </g>
+          </svg>
+
+          {/* 4. Wordmark */}
+          <div className="lt-wordmark">
+            <span className="lt-title">
+              <span className="brand-shree">Shree</span>
+              <span className="brand-spark">Spark</span>
             </span>
-          ))}
-          <span className="ai-star-burst" />
-          <span className="ai-scan" />
-        </div>
-        {label && (
-          <div className="ai-label">
-            <span className="ai-prompt">›</span> navigating to <b>{label}</b>
-            <span className="ai-caret" />
+            <span className="lt-subtitle">INFOTECH</span>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

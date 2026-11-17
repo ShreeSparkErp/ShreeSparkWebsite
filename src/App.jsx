@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
-import bannerMultiDevice from './assets/banners/banner-multidevice-hd.png'
-import bannerDashboard from './assets/banners/banner-dashboard-hd.png'
-import bannerLogin from './assets/banners/banner-login-hd.png'
-import JewelBackdrop from './JewelBackdrop.jsx'
+import bannerMultiDevice from './assets/banners/banner-multidevice-hd.webp'
+import bannerDashboard from './assets/banners/banner-dashboard-hd.webp'
+import bannerLogin from './assets/banners/banner-login-hd.webp'
+import Icon from './Icon.jsx'
+import BrandBackdrop from './BrandBackdrop.jsx'
 import LogoTransition from './LogoTransition.jsx'
 
 const heroBanners = [
@@ -11,11 +12,11 @@ const heroBanners = [
     id: 'multidevice',
     title: 'Multi-Device ERP Platform',
     subtitle: 'Access showroom & workshop on Desktop, Laptop, Tablet & Mobile',
-    badge: '100% Web-Based • Multi-Device Access',
+    badge: 'Web-Based • Multi-Device Access',
     chips: [
-      '🖥️ Desktop Showroom POS',
-      '💻 Laptop Workshop Sync',
-      '📱 Tablet & Phone Real-time'
+      'Desktop Showroom POS',
+      'Laptop Workshop Sync',
+      'Tablet & Phone Real-time'
     ],
     src: bannerMultiDevice,
     alt: 'Shree Spark Jewellery ERP on Desktop, Laptop, Tablet and Mobile'
@@ -37,12 +38,12 @@ const heroBanners = [
   {
     id: 'login',
     title: 'Secure Multi-Tenant Cloud ERP Portal',
-    subtitle: 'Enterprise-grade encryption, tenant isolation & role governance',
-    badge: 'Bank-Grade Security • Cloud Synced',
+    subtitle: 'Encrypted access, separate data for every business & role-based permissions',
+    badge: 'Secure Access • Cloud Synced',
     chips: [
-      '🔒 256-Bit SSL Encrypted',
-      '🏢 Multi-Tenant Security',
-      '👥 Role-Based Governance'
+      '256-Bit SSL Encrypted',
+      'Multi-Tenant Security',
+      'Role-Based Permissions'
     ],
     src: bannerLogin,
     alt: 'Shree Spark Jewellery ERP Secure Cloud Login'
@@ -61,7 +62,7 @@ function HeroBannerSlider() {
     if (isPaused || zoomModalOpen) return
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroBanners.length)
-    }, 4000)
+    }, 3000)
     return () => clearInterval(timer)
   }, [isPaused, zoomModalOpen])
 
@@ -122,11 +123,6 @@ function HeroBannerSlider() {
         <div className="dash-head">
           <div className="dash-title">
             <div className="dash-title-main">
-              <span className="dash-window-dots" aria-hidden="true">
-                <span className="dot red"></span>
-                <span className="dot yellow"></span>
-                <span className="dot green"></span>
-              </span>
               <span>Shree Spark Jewellery ERP</span>
             </div>
             <small className="dash-subtitle">
@@ -134,10 +130,6 @@ function HeroBannerSlider() {
             </small>
           </div>
           <div className="banner-top-meta">
-            <span className="live">
-              <span className="live-dot"></span>
-              SYSTEM ONLINE
-            </span>
             <span className="banner-slide-count">
               {String(currentSlide + 1).padStart(2, '0')} / {String(heroBanners.length).padStart(2, '0')}
             </span>
@@ -159,7 +151,7 @@ function HeroBannerSlider() {
                 key={banner.id}
                 className="banner-slide-item"
                 onClick={() => setZoomModalOpen(true)}
-                title="Click to view full 2K HD preview"
+                title="Click to enlarge"
               >
                 <div className="banner-img-wrapper">
                   <img
@@ -172,9 +164,6 @@ function HeroBannerSlider() {
                     {banner.chips.map((chip, i) => (
                       <span key={i} className="banner-chip">{chip}</span>
                     ))}
-                  </div>
-                  <div className="banner-zoom-hint">
-                    🔍 Click for 2K HD Full View
                   </div>
                 </div>
               </div>
@@ -230,7 +219,7 @@ function HeroBannerSlider() {
 
         {/* Floating Pill Badge */}
         <div className="dash-floating-pill">
-          🌐 {currentBanner.badge}
+          {currentBanner.badge}
         </div>
       </div>
 
@@ -257,7 +246,7 @@ function HeroBannerSlider() {
                 onClick={() => setZoomModalOpen(false)}
                 aria-label="Close enlarged preview"
               >
-                ✕
+                <Icon name="x" size={20} />
               </button>
             </div>
             <div className="banner-modal-body">
@@ -317,16 +306,16 @@ const jewelleryFeatures = [
   {
     id: 'karigar-issue-receipt',
     title: 'Karigar wise Issue/Receipt',
-    symbol: '⚒',
+    icon: 'hammer',
     category: 'Artisan & Karigar',
     badge: 'Manufacturing',
-    desc: 'Seamlessly issue raw gold bullion, silver alloys, and loose gemstones to karigars (artisans) and record receipts of finished ornaments with automatic melting loss, purity checks, and labor charge tracking.',
+    desc: 'Issue raw gold bullion, silver alloys, and loose gemstones to karigars (artisans) and record receipts of finished ornaments with automatic melting loss, purity checks, and labor charge tracking.',
     highlights: ['Fine Metal Issue & Return', 'Wastage & Loss Calculation', 'Labour & Making Charge Khata']
   },
   {
     id: 'customer-issue-receipt',
     title: 'Customer wise Issue/Receipt',
-    symbol: '👥',
+    icon: 'users',
     category: 'Artisan & Karigar',
     badge: 'Retail Counter',
     desc: 'Manage custom jewellery orders, advance metal deposits, old gold exchange receipts, and repair intakes with automated voucher generation, instant customer SMS/WhatsApp receipts, and photo proofing.',
@@ -335,16 +324,16 @@ const jewelleryFeatures = [
   {
     id: 'karigar-customer-rate-analysis',
     title: 'Karigar/Customer wise Rate analysis',
-    symbol: '📈',
+    icon: 'trending-up',
     category: 'Artisan & Karigar',
-    badge: 'Rate Intelligence',
+    badge: 'Rate Analysis',
     desc: 'In-depth rate analysis evaluating making charge variance, artisan cost efficiency, and customer-specific price lists across fluctuating 24K, 22K, 18K gold and silver market bhav.',
     highlights: ['Artisan Making Charge Audits', 'Customer Pricing Tiers', 'Real-Time Margin Tracking']
   },
   {
     id: 'stock-barcoding',
     title: 'Stock management with Barcoding Facility',
-    symbol: '▥',
+    icon: 'scan-barcode',
     category: 'Inventory & Barcoding',
     badge: 'Barcode & Tagging',
     desc: 'End-to-end stock control with high-precision barcode tagging. Automatically segregates Gross Weight, Net Weight, Stone Carats, and Wastage for instant scan-and-bill counter checkout.',
@@ -353,7 +342,7 @@ const jewelleryFeatures = [
   {
     id: 'tag-image-catalogue',
     title: 'Tag Image Catalogue',
-    symbol: '📷',
+    icon: 'camera',
     category: 'Inventory & Barcoding',
     badge: 'Visual Merchandising',
     desc: 'Attach high-definition photos directly to item barcode tags. Create interactive digital lookbooks, showcase counter vault collections on tablets, and share instant WhatsApp catalogues with buyers.',
@@ -362,7 +351,7 @@ const jewelleryFeatures = [
   {
     id: 'physical-stock-scan',
     title: 'Physical Stock verification with Scan facility',
-    symbol: '🔍',
+    icon: 'scan-search',
     category: 'Inventory & Barcoding',
     badge: 'Rapid Audit',
     desc: 'Audit thousands of ornaments across showroom display counters, trays, and vault safes in minutes using handheld barcode scanners. Instantly spots missing or misplaced items with zero downtime.',
@@ -371,7 +360,7 @@ const jewelleryFeatures = [
   {
     id: 'cash-bank-management',
     title: 'Cash/Bank Management',
-    symbol: '🏦',
+    icon: 'landmark',
     category: 'Finance & Ledgers',
     badge: 'Multi-Account Treasury',
     desc: 'Centralized financial management across multiple counter cash drawers, safe lockers, and bank accounts. Instantly reconcile RTGS/NEFT metal transfers, POS card swipe settlements, and UPI QR payments.',
@@ -380,47 +369,47 @@ const jewelleryFeatures = [
   {
     id: 'metal-amount-ledger',
     title: 'Metal & Amount wise Ledger management',
-    symbol: '⚖',
+    icon: 'scale',
     category: 'Finance & Ledgers',
     badge: 'Dual-Balance Ledgers',
-    desc: 'Native jewellery dual-ledger architecture: maintains running balance in Pure Metal Weight (Fine Grams / Tola) simultaneously with Monetary Currency (₹) for 100% foolproof party accounts.',
+    desc: 'Native jewellery dual-ledger architecture: maintains running balance in Pure Metal Weight (Fine Grams / Tola) simultaneously with Monetary Currency (₹) for accurate party accounts.',
     highlights: ['Fine Gold/Silver Weight Balance', 'Currency (₹) Ledger Tracking', 'Bhav Fixing & Metal Settlements']
   },
   {
     id: 'sales-purchase-analysis',
     title: 'Sales & Purchase Analysis',
-    symbol: '📊',
+    icon: 'chart-column',
     category: 'Finance & Ledgers',
-    badge: 'Executive BI',
-    desc: 'Executive business intelligence reports analyzing highest-selling jewellery categories, vendor purchase trends, seasonal sales spikes (Dhanteras, Wedding season), and gross profit margins.',
+    badge: 'Business Reports',
+    desc: 'Reports showing your highest-selling jewellery categories, vendor purchase trends, seasonal sales spikes (Dhanteras, Wedding season), and gross profit margins.',
     highlights: ['Category Turnover Velocity', 'Vendor Price Comparison', 'Gross Margin & Profit Audits']
   },
   {
     id: 'aging-stock-analysis',
     title: 'Aging wise Stock Analysis',
-    symbol: '⏳',
+    icon: 'hourglass',
     category: 'Finance & Ledgers',
     badge: 'Capital Optimization',
-    desc: 'Classify inventory by aging brackets (30, 60, 90, 180+ days) to identify dead stock and slow-moving jewelry designs. Empowers you to melt, remake, or liquidate idle gold weight to free working capital.',
+    desc: 'Classify inventory by aging brackets (30, 60, 90, 180+ days) to identify dead stock and slow-moving jewelry designs. Helps you decide what to melt, remake, or sell so idle gold weight frees up working capital.',
     highlights: ['30 / 60 / 90 / 180+ Day Buckets', 'Dead Stock Identification', 'Idle Gold Liquidation Insights']
   },
   {
     id: 'user-access-control',
     title: 'User Access Control management',
-    symbol: '🔒',
+    icon: 'lock',
     category: 'Security & Governance',
     badge: 'Role-Based Security',
-    desc: 'Enterprise-grade permission controls ensuring counter salesmen, cashiers, accountants, and branch managers only access designated screens. Hide purchase costs, supplier margins, and ledger reports by role.',
+    desc: 'Permission controls so that counter salesmen, cashiers, accountants, and branch managers only access designated screens. Hide purchase costs, supplier margins, and ledger reports by role.',
     highlights: ['Role-Based Permission Matrix', 'Hide Sensitive Costs/Margins', 'Multi-Branch Staff Governance']
   },
   {
     id: 'entry-log-facility',
     title: 'Every Entry wise Log Facility',
-    symbol: '📝',
+    icon: 'file-text',
     category: 'Security & Governance',
-    badge: 'Forensic Audit Trail',
-    desc: 'Immutable digital audit log recording every single creation, alteration, rate edit, and voucher deletion. Captures exact timestamps, user identity, IP address, and previous vs. new values for total transparency.',
-    highlights: ['Timestamp & User ID Stamping', 'Before vs. After Value Tracking', 'Zero Tampering Accountability']
+    badge: 'Audit Trail',
+    desc: 'An audit log that records every creation, alteration, rate edit, and voucher deletion. Captures exact timestamps, user identity, IP address, and previous vs. new values for total transparency.',
+    highlights: ['Timestamp & User ID Stamping', 'Before vs. After Value Tracking', 'Clear Accountability']
   }
 ]
 
@@ -435,19 +424,19 @@ const faqItems = [
   },
   {
     q: 'Can our showroom perform physical stock verification with Barcode scanners?',
-    a: 'Yes. Shree Spark Jewellery ERP Software supports 1D & 2D barcode printing and QR codes. Showroom staff can scan entire display counter trays and vault safes in minutes using wireless handheld scanners. The system immediately alerts you to missing items, misplaced trays, or unbilled pieces with zero showroom downtime.'
+    a: 'Yes. Shree Spark ERP supports 1D & 2D barcode printing and QR codes. Showroom staff can scan entire display counter trays and vault safes in minutes using wireless handheld scanners. The system immediately alerts you to missing items, misplaced trays, or unbilled pieces with zero showroom downtime.'
   },
   {
     q: 'How does Metal & Amount-wise Ledger Management ensure bullion accuracy?',
-    a: 'Unlike conventional generic software that only tracks monetary figures (₹), our Jewellery ERP features a native dual-ledger architecture. Every transaction maintains two distinct balances: Pure Metal Weight (Fine 999.0 Grams/Tola) and Currency Amount (INR). This guarantees 100% accuracy during metal advances, old gold exchanges, Bhav cuts (rate fixing), and party ledger settlements.'
+    a: 'Unlike conventional generic software that only tracks monetary figures (₹), our Jewellery ERP features a native dual-ledger architecture. Every transaction maintains two distinct balances: Pure Metal Weight (Fine 999.0 Grams/Tola) and Currency Amount (INR). This keeps balances accurate during metal advances, old gold exchanges, Bhav cuts (rate fixing), and party ledger settlements.'
   },
   {
     q: 'How does Aging-wise Stock Analysis help in working capital optimization?',
-    a: 'Aging-wise analysis categorizes your showroom inventory into customizable age brackets (such as 30, 60, 90, 180+ days). It identifies slow-moving collections, dead designs, and idle gold weight, empowering you to liquidate, discount, or melt and remake ornaments to unlock working capital for trending festive designs.'
+    a: 'Aging-wise analysis categorizes your showroom inventory into customizable age brackets (such as 30, 60, 90, 180+ days). It identifies slow-moving collections, dead designs, and idle gold weight, so you can liquidate, discount, or melt and remake ornaments and free up working capital for trending festive designs.'
   },
   {
     q: 'Is our jewellery showroom and customer financial data secure in the cloud?',
-    a: 'Absolutely. Shree Spark Web-Based Jewellery ERP Software operates on enterprise-grade cloud architecture protected by 256-bit SSL encryption, automated daily off-site cloud backups, role-based access governance (hiding cost prices and metal purchase margins from counter staff), and tamper-proof user activity logs.'
+    a: 'Yes. Shree Spark ERP runs on secure cloud servers protected by 256-bit SSL encryption, automated daily off-site cloud backups, role-based access governance (hiding cost prices and metal purchase margins from counter staff), and user activity logs.'
   }
 ]
 
@@ -501,52 +490,52 @@ function App() {
     setMenuOpen(false)
   }
 
-  // Header link click -> full-screen logo transition, then jump to the section
-  const SECTION_LABELS = {
-    home: 'Home', about: 'About', solutions: 'Solutions', 'web-erp': 'Web ERP',
-    features: 'Features', services: 'Services', faq: 'FAQ', contact: 'Contact',
-  }
-  const [jump, setJump] = useState(null)
-
-  const handleHeaderClick = (e) => {
-    const link = e.target.closest('a[href^="#"]')
-    if (!link) return
-    const id = link.getAttribute('href').slice(1)
-    const target = document.getElementById(id)
-    if (!target) return
-    e.preventDefault()
-    setMenuOpen(false)
-    if (jump) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      target.scrollIntoView({ block: 'start' })
-      window.history.replaceState(null, '', '#' + id)
-      return
-    }
-    const rect = link.getBoundingClientRect()
-    setJump({
-      id,
-      label: SECTION_LABELS[id] || '',
-      x: Math.round(rect.left + rect.width / 2) + 'px',
-      y: Math.round(rect.top + rect.height / 2) + 'px',
-      n: Date.now(),
-    })
-  }
+  // In-page link click -> Shree Spark logo loader, then jump to the section
+  // behind it while the logo is fully on screen.
+  const [loader, setLoader] = useState(null)
+  const loaderBusy = useRef(false)
 
   useEffect(() => {
-    if (!jump) return
-    const jumpTimer = setTimeout(() => {
-      const el = document.getElementById(jump.id)
-      if (el) {
-        el.scrollIntoView({ behavior: 'instant', block: 'start' })
-        window.history.replaceState(null, '', '#' + jump.id)
+    const timers = []
+    const onClick = (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const link = e.target.closest('a[href^="#"]')
+      if (!link) return
+      const id = link.getAttribute('href').slice(1)
+      const target = id && document.getElementById(id)
+      if (!target) return
+      e.preventDefault()
+      setMenuOpen(false)
+      const jump = () => {
+        // The loader is the transition: show the destination as-is, without the
+        // scroll-reveal animation playing a second time on top of it.
+        const root = document.documentElement
+        root.classList.add('lt-jump')
+        target.scrollIntoView({ behavior: 'instant', block: 'start' })
+        window.history.replaceState(null, '', '#' + id)
+        const vh = window.innerHeight
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+          const r = el.getBoundingClientRect()
+          if (r.bottom > 0 && r.top < vh) {
+            el.classList.remove('reveal-from-top')
+            el.classList.add('is-revealed')
+          }
+        })
+        requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('lt-jump')))
       }
-    }, 1650)
-    const endTimer = setTimeout(() => setJump(null), 2450)
-    return () => {
-      clearTimeout(jumpTimer)
-      clearTimeout(endTimer)
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return jump()
+      if (loaderBusy.current) return
+      loaderBusy.current = true
+      setLoader(Date.now())
+      timers.push(setTimeout(jump, 1500))
+      timers.push(setTimeout(() => { setLoader(null); loaderBusy.current = false }, 2050))
     }
-  }, [jump])
+    document.addEventListener('click', onClick)
+    return () => {
+      document.removeEventListener('click', onClick)
+      timers.forEach(clearTimeout)
+    }
+  }, [])
 
   // Scroll reveal animations on every box & content
   useEffect(() => {
@@ -574,7 +563,7 @@ function App() {
     })
 
     const targets = document.querySelectorAll(
-      '.section-head, .mini-card, .solution, .web-erp-card, .web-erp-comparison-banner, .comp-col, .jewel-feature-card, .service-card, .why-image, .benefits li, .quote, .faq-item, .contact-item, .contact-form, .map-card, .cta, .two-col > div'
+      '.section-head, .mini-card, .solution, .web-erp-card, .web-erp-comparison-banner, .comp-col, .jewel-feature-card, .service-card, .why-image, .benefits li, .faq-item, .contact-item, .contact-form, .map-card, .cta, .two-col > div'
     )
 
     targets.forEach((el) => {
@@ -591,14 +580,14 @@ function App() {
 
   return (
     <>
-      {jump && <LogoTransition key={jump.n} label={jump.label} x={jump.x} y={jump.y} />}
+      {loader && <LogoTransition key={loader} />}
 
-      <header className="topbar-wrapper" onClick={handleHeaderClick}>
+      <header className="topbar-wrapper">
         <div className="topbar">
           <a className="brand" href="#home">
             <img
               src="/logo.jpg"
-              alt="Shree Spark Infotech - Web-Based Jewellery ERP Software"
+              alt="Shree Spark Infotech logo"
               className="brand-logo"
               width="44"
               height="44"
@@ -629,7 +618,7 @@ function App() {
               onClick={toggleTheme}
               aria-label={`Current theme: ${theme === 'dark' ? 'Dark' : 'Light'} mode. Click to toggle.`}
             >
-              <span className="theme-toggle-icon">{theme === 'dark' ? '🌙' : '☀️'}</span>
+              <span className="theme-toggle-icon"><Icon name={theme === 'dark' ? 'moon' : 'sun'} size={16} /></span>
               <span>{theme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
             </button>
 
@@ -643,7 +632,7 @@ function App() {
             aria-label={`Current theme: ${theme === 'dark' ? 'Dark' : 'Light'} mode. Click to toggle.`}
             title={`Theme: ${theme === 'dark' ? 'Dark' : 'Light'}`}
           >
-            <span className="theme-toggle-icon">{theme === 'dark' ? '🌙' : '☀️'}</span>
+            <span className="theme-toggle-icon"><Icon name={theme === 'dark' ? 'moon' : 'sun'} size={16} /></span>
           </button>
 
           <button
@@ -653,7 +642,7 @@ function App() {
             aria-label={`Current theme: ${theme === 'dark' ? 'Dark' : 'Light'} mode. Click to toggle.`}
             title={`Theme: ${theme === 'dark' ? 'Dark' : 'Light'} (click to switch)`}
           >
-            <span className="theme-toggle-icon">{theme === 'dark' ? '🌙' : '☀️'}</span>
+            <span className="theme-toggle-icon"><Icon name={theme === 'dark' ? 'moon' : 'sun'} size={16} /></span>
             <span className="theme-toggle-text">{theme === 'dark' ? 'Dark' : 'Light'}</span>
           </button>
 
@@ -664,76 +653,30 @@ function App() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? '✕' : '☰'}
+            <Icon name={menuOpen ? 'x' : 'menu'} size={22} />
           </button>
         </div>
       </header>
 
       <main>
         <section className="hero" id="home">
-          {/* Animated Jewellery ERP Background Elements */}
-          <div className="jewellery-hero-bg" aria-hidden="true">
-            <JewelBackdrop variant={1} dust={24} className="jb-hero" />
-            <div className="gold-glow-orb"></div>
-            <div className="cyan-glow-orb"></div>
-
-            {/* Faceted Diamond Wireframes */}
-            <svg className="jewel-shape diamond-1" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="25,30 75,30 92,48 50,92 8,48" />
-              <line x1="25" y1="30" x2="8" y2="48" />
-              <line x1="75" y1="30" x2="92" y2="48" />
-              <line x1="38" y1="30" x2="32" y2="48" />
-              <line x1="62" y1="30" x2="68" y2="48" />
-              <line x1="8" y1="48" x2="92" y2="48" />
-              <line x1="32" y1="48" x2="50" y2="92" />
-              <line x1="68" y1="48" x2="50" y2="92" />
-            </svg>
-
-            <svg className="jewel-shape diamond-2" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="50,15 85,50 50,85 15,50" />
-              <line x1="50" y1="15" x2="50" y2="85" />
-              <line x1="15" y1="50" x2="85" y2="50" />
-              <polygon points="50,30 70,50 50,70 30,50" />
-            </svg>
-
-            <svg className="jewel-shape diamond-3" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="25,30 75,30 92,48 50,92 8,48" />
-              <line x1="25" y1="30" x2="8" y2="48" />
-              <line x1="75" y1="30" x2="92" y2="48" />
-              <line x1="8" y1="48" x2="92" y2="48" />
-              <line x1="32" y1="48" x2="50" y2="92" />
-              <line x1="68" y1="48" x2="50" y2="92" />
-            </svg>
-
-            {/* Sparkles */}
-            <span className="sparkle sparkle-1">✦</span>
-            <span className="sparkle gold sparkle-2">★</span>
-            <span className="sparkle sparkle-3">✦</span>
-            <span className="sparkle gold sparkle-4">✧</span>
-            <span className="sparkle sparkle-5">★</span>
-
-            {/* Floating Jewellery ERP Telemetry Badges */}
-            <div className="jewel-tag-float tag-1">✦ HUID 916 CERTIFIED</div>
-            <div className="jewel-tag-float tag-2">BARCODE TRAY SYNCED</div>
-            <div className="jewel-tag-float tag-3">22K / 18K LIVE RATES</div>
-          </div>
-
+          <BrandBackdrop variant={1} dust={24} className="jb-hero" />
           <div className="container hero-grid">
             <div>
-              <div className="eyebrow">🌐 NEXT-GENERATION CLOUD &amp; WEB-BASED JEWELLERY ERP</div>
-              <h1>One Platform. Complete Control.<br /><span>Limitless Growth.</span></h1>
-              <div className="hero-subheading">Intelligent Jewellery ERP Software Built for the Future of Your Business.</div>
-              <p>Shree Spark Infotech offers an advanced, web-based Jewellery ERP solution for retailers, wholesalers, manufacturers, and multi-branch businesses. Manage inventory, barcoding, karigar operations, metal and customer ledgers, and branch activities through one secure, centralized platform accessible anytime, anywhere.</p>
+              <div className="eyebrow">Web-Based Jewellery ERP</div>
+              <h1>One Platform. Complete Control.<br /><span>Room to Grow.</span></h1>
+              <div className="hero-subheading">Jewellery ERP Software Built Around How Your Business Works.</div>
+              <p>Shree Spark Infotech offers a web-based Jewellery ERP for retailers, wholesalers, manufacturers, and multi-branch businesses. Manage inventory, barcoding, karigar operations, metal and customer ledgers, and branch activities through one secure, centralized platform accessible anytime, anywhere.</p>
               <p className="hero-tagline">Work Smarter. Track Every Gram. Grow Without Limits.</p>
               <div className="actions">
                 <a className="btn" href="#solutions">Explore Jewellery ERP →</a>
                 <a className="btn outline" href="#contact">Book Your Live Demo →</a>
               </div>
               <div className="proof hero-proof">
-                <span>⚡ 100% Web-Based Access</span>
-                <span>🌐 Seamless Access. Anytime. Anywhere.</span>
-                <span>🔐 Secure Access &amp; User Permissions</span>
-                <span>📊 Intelligent Business Insights</span>
+                <span>Web-Based Access</span>
+                <span>Access Anytime, Anywhere</span>
+                <span>Secure Access &amp; User Permissions</span>
+                <span>Clear Business Reports</span>
               </div>
             </div>
             <HeroBannerSlider />
@@ -741,34 +684,33 @@ function App() {
         </section>
 
         <section className="section" id="about">
-
-          <JewelBackdrop variant={0} />
+          <BrandBackdrop variant={0} />
           <div className="container two-col">
             <div>
               <div className="eyebrow">Jewellery ERP Specialists</div>
-              <h2>Enterprise Jewellery ERP Software<br />Built for Real Growth.</h2>
-              <p className="lead">Shree Spark Infotech specializes in powerful Jewellery ERP Software and custom digital solutions that help jewellery retailers, wholesalers, and manufacturers simplify operations, connect workflows, and maximize profitability.</p>
-              <p className="lead">From our flagship Web-Based Jewellery ERP Software to custom business applications, we provide scalable systems designed specifically for the precious metal industry.</p>
-              <a className="btn small-btn" href="#solutions">Explore Jewellery ERP Software →</a>
+              <h2>Jewellery ERP Software<br />Built for Real Growth.</h2>
+              <p className="lead">Shree Spark Infotech specializes in Jewellery ERP software and custom digital solutions that help jewellery retailers, wholesalers, and manufacturers simplify operations, connect workflows, and maximize profitability.</p>
+              <p className="lead">From our web-based Jewellery ERP to custom business applications, we provide scalable systems designed specifically for the precious metal industry.</p>
+              <a className="btn small-btn" href="#solutions">Explore Jewellery ERP →</a>
             </div>
             <div className="mini-grid">
               <article className="mini-card">
-                <div className="icon">♢</div>
+                <div className="icon"><Icon name="shield-check" /></div>
                 <h3>Reliable Systems</h3>
                 <p>Designed around business needs.</p>
               </article>
               <article className="mini-card">
-                <div className="icon">♧</div>
+                <div className="icon"><Icon name="workflow" /></div>
                 <h3>Integrated Workflows</h3>
                 <p>Connected business processes.</p>
               </article>
               <article className="mini-card">
-                <div className="icon">▥</div>
+                <div className="icon"><Icon name="chart-column" /></div>
                 <h3>Better Visibility</h3>
                 <p>Useful reporting and insights.</p>
               </article>
               <article className="mini-card">
-                <div className="icon">◉</div>
+                <div className="icon"><Icon name="headset" /></div>
                 <h3>Customer Focus</h3>
                 <p>Support built around your needs.</p>
               </article>
@@ -777,30 +719,17 @@ function App() {
         </section>
 
         <section className="section tint jewellery-solutions-section" id="solutions">
-
-          <JewelBackdrop variant={1} />
-          <div className="jewel-section-bg" aria-hidden="true">
-            <svg className="jewel-section-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
-              <polygon points="25,30 75,30 92,48 50,92 8,48" />
-              <line x1="25" y1="30" x2="8" y2="48" />
-              <line x1="75" y1="30" x2="92" y2="48" />
-              <line x1="38" y1="30" x2="32" y2="48" />
-              <line x1="62" y1="30" x2="68" y2="48" />
-              <line x1="8" y1="48" x2="92" y2="48" />
-              <line x1="32" y1="48" x2="50" y2="92" />
-              <line x1="68" y1="48" x2="50" y2="92" />
-            </svg>
-          </div>
+          <BrandBackdrop variant={1} />
           <div className="container">
             <div className="section-head">
-              <div className="eyebrow">Our Jewellery ERP Software Solutions</div>
-              <h2>One Integrated Jewellery ERP Software Platform</h2>
-              <p>Bring showroom billing, barcoding, karigar management, bullion ledgers, and accounts together with our specialized Jewellery ERP Software.</p>
+              <div className="eyebrow">Our Solutions</div>
+              <h2>One Integrated Jewellery ERP Platform</h2>
+              <p>Bring showroom billing, barcoding, karigar management, bullion ledgers, and accounts together in one system.</p>
             </div>
             <div className="solution-grid">
               <article className="solution dark">
-                <div className="solution-cloud-badge">☁ 100% CLOUD &amp; WEB-BASED</div>
-                <div className="icon">◇</div>
+                <div className="solution-cloud-badge">CLOUD &amp; WEB-BASED</div>
+                <div className="icon"><Icon name="gem" /></div>
                 <h3>Web-Based Jewellery ERP Software</h3>
                 <p>Run your jewellery business from any web browser on desktop, laptop, tablet, or smartphone with zero local installation and multi-branch real-time sync.</p>
                 <ul className="check-list">
@@ -813,7 +742,7 @@ function App() {
                 <a className="btn" href="#contact">Request a Demo →</a>
               </article>
               <article className="solution">
-                <div className="icon">&lt;/&gt;</div>
+                <div className="icon"><Icon name="code-xml" /></div>
                 <h3>Custom Business Software</h3>
                 <p>Digitize unique workflows with software tailored to your business model, reporting requirements and future plans.</p>
                 <ul className="check-list">
@@ -829,76 +758,75 @@ function App() {
         </section>
 
         <section className="section web-erp-section" id="web-erp">
-
-          <JewelBackdrop variant={2} />
+          <BrandBackdrop variant={2} />
           <div className="container">
             <div className="section-head text-light">
-              <div className="eyebrow web-erp-eyebrow">☁ Next-Gen Cloud Architecture</div>
-              <h2 className="text-white">100% Web-Based Jewellery ERP Software<br /><span>Access Anywhere. Anytime. On Any Device.</span></h2>
+              <div className="eyebrow web-erp-eyebrow">Cloud-Based</div>
+              <h2 className="text-white">Web-Based Jewellery ERP Software<br /><span>Access Anywhere. Anytime. On Any Device.</span></h2>
               <p className="text-light-muted">
-                Break free from legacy desktop software bound to a single counter PC. Shree Spark's Web-Based Jewellery ERP Software delivers the security, mobility, and speed your jewellery business needs to thrive across multiple stores and workshops.
+                Break free from legacy desktop software bound to a single counter PC. Shree Spark's web-based ERP gives your jewellery business the security, mobility, and speed it needs across multiple stores and workshops.
               </p>
             </div>
 
             <div className="web-erp-grid">
               <div className="web-erp-card">
-                <div className="web-erp-card-icon">🌐</div>
+                <div className="web-erp-card-icon"><Icon name="globe" size={24} /></div>
                 <div className="web-erp-badge">Browser-Based</div>
                 <h3>Zero Installation &amp; Any Device</h3>
-                <p>Run seamlessly on Google Chrome, Apple Safari, Microsoft Edge across Windows, macOS, iPad, and Android phones without installing heavy client software.</p>
-                <div className="web-erp-stat"><span>✓</span> Works on PC, Mac, iPad &amp; Mobile</div>
+                <p>Runs on Google Chrome, Apple Safari, Microsoft Edge across Windows, macOS, iPad, and Android phones without installing heavy client software.</p>
+                <div className="web-erp-stat"><span><Icon name="check" size={12} strokeWidth={3} /></span> Works on PC, Mac, iPad &amp; Mobile</div>
               </div>
 
               <div className="web-erp-card">
-                <div className="web-erp-card-icon">🏢</div>
+                <div className="web-erp-card-icon"><Icon name="building-2" size={24} /></div>
                 <div className="web-erp-badge">Multi-Showroom</div>
                 <h3>Multi-Branch Real-Time Sync</h3>
-                <p>Connect unlimited showrooms, wholesale counters, and manufacturing workshops into one unified central cloud database with zero sync delay.</p>
-                <div className="web-erp-stat"><span>✓</span> Instant Inter-Branch Transfers</div>
+                <p>Connect multiple showrooms, wholesale counters, and manufacturing workshops into one unified central cloud database.</p>
+                <div className="web-erp-stat"><span><Icon name="check" size={12} strokeWidth={3} /></span> Instant Inter-Branch Transfers</div>
               </div>
 
               <div className="web-erp-card">
-                <div className="web-erp-card-icon">☁️</div>
+                <div className="web-erp-card-icon"><Icon name="cloud" size={24} /></div>
                 <div className="web-erp-badge">Cost Saving</div>
                 <h3>Zero Server &amp; Hardware Overhead</h3>
-                <p>Eliminate costly physical in-house servers, expensive AMC contracts, static IP headaches, and local server hardware crash nightmares.</p>
-                <div className="web-erp-stat"><span>✓</span> Save ₹1L+ on Server Hardware</div>
+                <p>No in-house servers, server AMC contracts, static IPs, or local hardware crashes to worry about.</p>
+                <div className="web-erp-stat"><span><Icon name="check" size={12} strokeWidth={3} /></span> No In-House Server Needed</div>
               </div>
 
               <div className="web-erp-card">
-                <div className="web-erp-card-icon">🔄</div>
+                <div className="web-erp-card-icon"><Icon name="refresh-cw" size={24} /></div>
                 <div className="web-erp-badge">Zero Data Loss</div>
                 <h3>Automated Daily Cloud Backups</h3>
-                <p>Continuous encrypted database snapshots backed up to world-class cloud storage. If a showroom PC fails, your stock and ledgers remain 100% safe.</p>
-                <div className="web-erp-stat"><span>✓</span> 99.99% Uptime &amp; Auto-Snapshots</div>
+                <p>Encrypted database backups stored in the cloud. If a showroom PC fails, your stock and ledgers stay safe.</p>
+                <div className="web-erp-stat"><span><Icon name="check" size={12} strokeWidth={3} /></span> Daily Cloud Backups</div>
               </div>
 
               <div className="web-erp-card">
-                <div className="web-erp-card-icon">📱</div>
+                <div className="web-erp-card-icon"><Icon name="tablet-smartphone" size={24} /></div>
                 <div className="web-erp-badge">Floor Mobility</div>
                 <h3>Tablet Counter &amp; Digital Lookbooks</h3>
                 <p>Sales staff can walk customers through high-definition jewellery catalogues on tablets, generate instant estimates, and check live vault availability.</p>
-                <div className="web-erp-stat"><span>✓</span> Modern VIP Customer Experience</div>
+                <div className="web-erp-stat"><span><Icon name="check" size={12} strokeWidth={3} /></span> Better Customer Experience</div>
               </div>
 
               <div className="web-erp-card">
-                <div className="web-erp-card-icon">🔒</div>
-                <div className="web-erp-badge">Bank-Grade</div>
+                <div className="web-erp-card-icon"><Icon name="lock" size={24} /></div>
+                <div className="web-erp-badge">Secure</div>
                 <h3>Enterprise Security &amp; Role Access</h3>
-                <p>256-bit SSL encryption, granular permission shields (hide costs/bhav from staff), and multi-factor authentication protect your bullion confidentiality.</p>
-                <div className="web-erp-stat"><span>✓</span> 256-Bit SSL &amp; Forensic User Logs</div>
+                <p>256-bit SSL encryption and granular permission shields (hide costs/bhav from staff) protect your bullion confidentiality.</p>
+                <div className="web-erp-stat"><span><Icon name="check" size={12} strokeWidth={3} /></span> 256-Bit SSL &amp; Role Permissions</div>
               </div>
             </div>
 
             <div className="web-erp-comparison-banner">
               <div className="comparison-content">
-                <div className="comparison-tag">TRADITIONAL DESKTOP vs. SHREE SPARK JEWELLERY ERP SOFTWARE</div>
-                <h3>Upgrade from Outdated Desktop Systems to Modern Cloud Jewellery ERP Software</h3>
+                <div className="comparison-tag">TRADITIONAL DESKTOP vs. SHREE SPARK</div>
+                <h3>Move from Desktop Software to a Cloud Jewellery ERP</h3>
                 <p>Why jewellers across India are switching to our browser-based platform.</p>
               </div>
               <div className="comparison-table-wrapper">
                 <div className="comp-col old">
-                  <h4>❌ Legacy Desktop ERP</h4>
+                  <h4>Legacy Desktop ERP</h4>
                   <ul>
                     <li>Locked to single physical shop PC</li>
                     <li>High server, UPS &amp; static IP setup costs</li>
@@ -908,7 +836,7 @@ function App() {
                   </ul>
                 </div>
                 <div className="comp-col new">
-                  <h4>✓ Shree Spark Web-Based Jewellery ERP Software</h4>
+                  <h4>Shree Spark Web-Based ERP</h4>
                   <ul>
                     <li>Access from any browser (PC, Tablet, Phone)</li>
                     <li>Zero server maintenance &amp; zero local setup</li>
@@ -923,13 +851,12 @@ function App() {
         </section>
 
         <section className="section jewellery-features-section" id="features">
-
-          <JewelBackdrop variant={3} />
+          <BrandBackdrop variant={3} />
           <div className="container">
             <div className="section-head">
-              <div className="eyebrow">Enterprise Jewellery ERP Software Modules</div>
+              <div className="eyebrow">ERP Modules</div>
               <h2>Specialized Features of Our Jewellery ERP Software</h2>
-              <p>Engineered to handle the unique complexities of jewellery retail, wholesale, manufacturing karigar workflows, bullion accounts, and vault stock auditing with specialized Jewellery ERP Software.</p>
+              <p>Built to handle the unique complexities of jewellery retail, wholesale, manufacturing karigar workflows, bullion accounts, and vault stock auditing.</p>
             </div>
 
             <div className="feature-filter-bar" role="tablist" aria-label="Feature categories">
@@ -949,7 +876,7 @@ function App() {
               {filteredFeatures.map(item => (
                 <article className="jewel-feature-card" key={item.id}>
                   <div className="feature-card-top">
-                    <div className="feature-card-icon" aria-hidden="true">{item.symbol}</div>
+                    <div className="feature-card-icon" aria-hidden="true"><Icon name={item.icon} /></div>
                     <span className="feature-card-badge">{item.badge}</span>
                   </div>
                   <h3>{item.title}</h3>
@@ -957,7 +884,7 @@ function App() {
                   <ul className="feature-highlights">
                     {item.highlights.map((point, idx) => (
                       <li key={idx}>
-                        <span className="bullet">✦</span>
+                        <span className="bullet"><Icon name="check" size={14} strokeWidth={2.5} /></span>
                         <span>{point}</span>
                       </li>
                     ))}
@@ -969,8 +896,7 @@ function App() {
         </section>
 
         <section className="section" id="services">
-
-          <JewelBackdrop variant={4} />
+          <BrandBackdrop variant={4} />
           <div className="container">
             <div className="section-head">
               <div className="eyebrow">What we do</div>
@@ -979,32 +905,32 @@ function App() {
             </div>
             <div className="services-grid">
               <article className="service-card">
-                <div className="icon">◇</div>
+                <div className="icon"><Icon name="gem" /></div>
                 <h3>Web-Based Jewellery ERP</h3>
                 <p>100% browser-based business management for jewellery retailers, wholesalers, and manufacturers with multi-branch cloud sync.</p>
               </article>
               <article className="service-card">
-                <div className="icon">&lt;/&gt;</div>
+                <div className="icon"><Icon name="code-xml" /></div>
                 <h3>Custom Software</h3>
                 <p>Tailor-made business applications designed around your workflows.</p>
               </article>
               <article className="service-card">
-                <div className="icon">◎</div>
+                <div className="icon"><Icon name="globe" /></div>
                 <h3>Web Development</h3>
                 <p>Modern, responsive websites and web applications for growing businesses.</p>
               </article>
               <article className="service-card">
-                <div className="icon">▯</div>
+                <div className="icon"><Icon name="smartphone" /></div>
                 <h3>Mobile Applications</h3>
                 <p>Business apps that help teams stay connected and productive.</p>
               </article>
               <article className="service-card">
-                <div className="icon">☁</div>
+                <div className="icon"><Icon name="cloud" /></div>
                 <h3>Cloud Solutions</h3>
                 <p>Scalable technology solutions for secure and efficient operations.</p>
               </article>
               <article className="service-card">
-                <div className="icon">⚙</div>
+                <div className="icon"><Icon name="settings" /></div>
                 <h3>Business Automation</h3>
                 <p>Reduce repetitive work, improve accuracy and gain business insights.</p>
               </article>
@@ -1013,8 +939,7 @@ function App() {
         </section>
 
         <section className="section tint">
-
-          <JewelBackdrop variant={5} />
+          <BrandBackdrop variant={5} />
           <div className="container two-col">
             <div>
               <div className="eyebrow">Why choose us</div>
@@ -1024,15 +949,10 @@ function App() {
                 <div className="laptop">
                   <div className="screen">
                     <div className="browser-bar">
-                      <div className="browser-dots">
-                        <span className="dot dot-red"></span>
-                        <span className="dot dot-yellow"></span>
-                        <span className="dot dot-green"></span>
-                      </div>
                       <div className="browser-url">
-                        🔒 https://erp.shreesparkinfotech.com/cloud-dashboard
+                        <Icon name="lock" size={12} strokeWidth={2.25} /> shreesparkinfotech.com
                       </div>
-                      <span className="browser-cloud-badge">☁ Web ERP</span>
+                      <span className="browser-cloud-badge">Web ERP</span>
                     </div>
                     <h4>Live Showroom &amp; Karigar Overview</h4>
                     <div className="screen-bars">
@@ -1050,7 +970,7 @@ function App() {
             </div>
             <div>
               <ul className="benefits">
-                <li>100% Web-Based Jewellery ERP Software (Zero local server setup)</li>
+                <li>Web-based Jewellery ERP (no local server setup)</li>
                 <li>Comprehensive Jewellery Barcoding &amp; Tagging tracking</li>
                 <li>Metal-weight (Grams) &amp; amount-wise dual ledger tracking</li>
                 <li>Multi-branch &amp; karigar workshop real-time synchronization</li>
@@ -1060,52 +980,13 @@ function App() {
           </div>
         </section>
 
-        <section className="section">
-
-          <JewelBackdrop variant={6} />
-          <div className="container">
-            <div className="section-head">
-              <div className="eyebrow">Our commitment</div>
-              <h2>Built around your business goals</h2>
-              <p>We focus on practical software that supports your processes today and can grow with your business tomorrow.</p>
-            </div>
-            <div className="testimonials">
-              <article className="quote">
-                <div className="stars">✦ ✦ ✦ ✦ ✦</div>
-                <p>“A well-planned ERP can bring stock, sales and operations into one clearer workflow.”</p>
-                <div className="person">
-                  <span className="avatar">S</span>
-                  <span>Retail Business<br /><small className="client-subtitle">Illustrative client profile</small></span>
-                </div>
-              </article>
-              <article className="quote">
-                <div className="stars">✦ ✦ ✦ ✦ ✦</div>
-                <p>“The right business software helps teams spend less time on repetitive tasks and more time serving customers.”</p>
-                <div className="person">
-                  <span className="avatar">W</span>
-                  <span>Wholesale Business<br /><small className="client-subtitle">Illustrative client profile</small></span>
-                </div>
-              </article>
-              <article className="quote">
-                <div className="stars">✦ ✦ ✦ ✦ ✦</div>
-                <p>“Useful reports and connected workflows give business owners better visibility into daily operations.”</p>
-                <div className="person">
-                  <span className="avatar">M</span>
-                  <span>Manufacturing Business<br /><small className="client-subtitle">Illustrative client profile</small></span>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
         <section className="section faq-section" id="faq">
-
-          <JewelBackdrop variant={7} />
+          <BrandBackdrop variant={7} />
           <div className="container">
             <div className="section-head">
               <div className="eyebrow">Frequently Asked Questions</div>
               <h2>Everything Jewellers Ask About Our ERP Software</h2>
-              <p>Common questions answered about implementing our 100% Web-Based Jewellery ERP Software in retail showrooms, wholesale counters, and manufacturing workshops.</p>
+              <p>Common questions about using our web-based Jewellery ERP in retail showrooms, wholesale counters, and manufacturing workshops.</p>
             </div>
 
             <div className="faq-list">
@@ -1135,21 +1016,19 @@ function App() {
         </section>
 
         <section className="cta">
-
-          <JewelBackdrop variant={8} />
+          <BrandBackdrop variant={8} />
           <div className="container cta-row">
             <div>
               <div className="eyebrow">Transform Your Jewellery Business</div>
-              <h2>Ready to Experience Modern Jewellery ERP Software?</h2>
-              <p>Schedule a personalized demo to see how Shree Spark's Jewellery ERP Software streamlines your showroom and workshop.</p>
+              <h2>Ready to Try a Modern Jewellery ERP?</h2>
+              <p>Schedule a personalized demo to see how Shree Spark's Jewellery ERP fits your showroom and workshop.</p>
             </div>
-            <a className="btn" href="#contact">Request ERP Software Demo →</a>
+            <a className="btn" href="#contact">Request a Demo →</a>
           </div>
         </section>
 
         <section className="section" id="contact">
-
-          <JewelBackdrop variant={9} />
+          <BrandBackdrop variant={9} />
           <div className="container contact-grid">
             <div>
               <div className="eyebrow">Contact us</div>
@@ -1157,25 +1036,25 @@ function App() {
               <p className="lead">Looking for jewellery ERP software, custom development or a technology partner? Send us your requirements.</p>
               <div className="contact-items">
                 <div className="contact-item">
-                  <span className="icon">✉</span>
+                  <span className="icon"><Icon name="mail" size={20} /></span>
                   <span><b>Email us</b><a href="mailto:sales@shreesparkinfotech.com">sales@shreesparkinfotech.com</a></span>
                 </div>
                 <div className="contact-item">
-                  <span className="icon">☎</span>
+                  <span className="icon"><Icon name="phone" size={20} /></span>
                   <span><b>Call us</b><a href="tel:+919265713425">+91 92657 13425</a></span>
                 </div>
                 <div className="contact-item">
-                  <span className="icon">📍</span>
+                  <span className="icon"><Icon name="map-pin" size={20} /></span>
                   <span>
                     <b>Office Address</b>
-                    518, Hilltown Landmark, Opp. Das Khaman, Nikol - Naroda Rd, Nicol Gam, Nikol, Ahmedabad, Gujarat 382350
+                    518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350
                     <a
                       href="https://maps.app.goo.gl/UquSkzt45jeTa1in6"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="map-link-btn"
                     >
-                      📍 View on Google Maps ↗
+                      View on Google Maps ↗
                     </a>
                   </span>
                 </div>
@@ -1221,7 +1100,6 @@ function App() {
                 />
               </div>
               <button className="btn" type="submit">Send Enquiry →</button>
-              <p className="form-note">This demo form opens your default email application. Connect a backend or form service to receive submissions directly.</p>
             </form>
           </div>
 
@@ -1230,12 +1108,12 @@ function App() {
             <div className="map-card">
               <div className="map-card-header">
                 <div>
-                  <div className="eyebrow map-card-eyebrow">📍 Our Office Location</div>
+                  <div className="eyebrow map-card-eyebrow">Our Office Location</div>
                   <h3 className="map-card-title">
                     Visit Shree Spark Infotech
                   </h3>
                   <p className="map-card-address">
-                    Hilltown Landmark, 518, Nikol - Naroda Rd, Nicol Gam, Nikol, Ahmedabad, Gujarat 382350
+                    518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350
                   </p>
                 </div>
                 <a
@@ -1271,7 +1149,7 @@ function App() {
               <a className="brand footer-brand" href="#home">
                 <img
                   src="/logo.jpg"
-                  alt="Shree Spark Infotech - Web-Based Jewellery ERP Software"
+                  alt="Shree Spark Infotech logo"
                   className="brand-logo footer-logo"
                   width="48"
                   height="48"
@@ -1299,7 +1177,7 @@ function App() {
                   rel="noopener noreferrer"
                   style={{ color: 'inherit', textDecoration: 'underline' }}
                 >
-                  518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad-382350, Gujarat ↗
+                  518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350 ↗
                 </a>
               </p>
               <p className="footer-detail-line">
