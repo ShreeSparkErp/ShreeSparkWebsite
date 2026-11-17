@@ -5,6 +5,7 @@ import bannerDashboard from './assets/banners/banner-dashboard-hd.webp'
 import bannerLogin from './assets/banners/banner-login-hd.webp'
 import Icon from './Icon.jsx'
 import BrandBackdrop from './BrandBackdrop.jsx'
+import LogoTransition from './LogoTransition.jsx'
 
 const heroBanners = [
   {
@@ -489,6 +490,53 @@ function App() {
     setMenuOpen(false)
   }
 
+  // In-page link click -> Shree Spark logo loader, then jump to the section
+  // behind it while the logo is fully on screen.
+  const [loader, setLoader] = useState(null)
+  const loaderBusy = useRef(false)
+
+  useEffect(() => {
+    const timers = []
+    const onClick = (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const link = e.target.closest('a[href^="#"]')
+      if (!link) return
+      const id = link.getAttribute('href').slice(1)
+      const target = id && document.getElementById(id)
+      if (!target) return
+      e.preventDefault()
+      setMenuOpen(false)
+      const jump = () => {
+        // The loader is the transition: show the destination as-is, without the
+        // scroll-reveal animation playing a second time on top of it.
+        const root = document.documentElement
+        root.classList.add('lt-jump')
+        target.scrollIntoView({ behavior: 'instant', block: 'start' })
+        window.history.replaceState(null, '', '#' + id)
+        const vh = window.innerHeight
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+          const r = el.getBoundingClientRect()
+          if (r.bottom > 0 && r.top < vh) {
+            el.classList.remove('reveal-from-top')
+            el.classList.add('is-revealed')
+          }
+        })
+        requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('lt-jump')))
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return jump()
+      if (loaderBusy.current) return
+      loaderBusy.current = true
+      setLoader(Date.now())
+      timers.push(setTimeout(jump, 1500))
+      timers.push(setTimeout(() => { setLoader(null); loaderBusy.current = false }, 2050))
+    }
+    document.addEventListener('click', onClick)
+    return () => {
+      document.removeEventListener('click', onClick)
+      timers.forEach(clearTimeout)
+    }
+  }, [])
+
   // Scroll reveal animations on every box & content
   useEffect(() => {
     const observerCallback = (entries) => {
@@ -532,6 +580,7 @@ function App() {
 
   return (
     <>
+      {loader && <LogoTransition key={loader} />}
 
       <header className="topbar-wrapper">
         <div className="topbar">
