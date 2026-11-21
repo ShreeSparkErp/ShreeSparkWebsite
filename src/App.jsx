@@ -440,6 +440,17 @@ const faqItems = [
   }
 ]
 
+const NAV_LINKS = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'solutions', label: 'Solutions' },
+  { id: 'web-erp', label: 'Web ERP' },
+  { id: 'features', label: 'Features' },
+  { id: 'services', label: 'Services' },
+  { id: 'faq', label: 'FAQ' },
+  { id: 'contact', label: 'Contact' },
+]
+
 function App() {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -489,6 +500,38 @@ function App() {
   const handleNavClick = () => {
     setMenuOpen(false)
   }
+
+  // Scroll-spy: highlight the topbar link of the section currently on screen
+  const [activeSection, setActiveSection] = useState('home')
+
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const sections = NAV_LINKS.map(({ id }) => document.getElementById(id)).filter(Boolean)
+      if (!sections.length) return
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      let current = sections[0].id
+      if (atBottom) {
+        current = sections[sections.length - 1].id
+      } else {
+        const line = window.innerHeight * 0.35
+        for (const sec of sections) {
+          if (sec.getBoundingClientRect().top <= line) current = sec.id
+        }
+      }
+      setActiveSection(current)
+    }
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update) }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
 
   // In-page link click -> Shree Spark logo loader, then jump to the section
   // behind it while the logo is fully on screen.
@@ -603,14 +646,17 @@ function App() {
             </div>
           </a>
           <nav className={`nav ${menuOpen ? 'open' : ''}`} id="nav">
-            <a href="#home" onClick={handleNavClick}>Home</a>
-            <a href="#about" onClick={handleNavClick}>About</a>
-            <a href="#solutions" onClick={handleNavClick}>Solutions</a>
-            <a href="#web-erp" onClick={handleNavClick}>Web ERP</a>
-            <a href="#features" onClick={handleNavClick}>Features</a>
-            <a href="#services" onClick={handleNavClick}>Services</a>
-            <a href="#faq" onClick={handleNavClick}>FAQ</a>
-            <a href="#contact" onClick={handleNavClick}>Contact</a>
+            {NAV_LINKS.map(({ id, label }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={handleNavClick}
+                className={activeSection === id ? 'active' : undefined}
+                aria-current={activeSection === id ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            ))}
             
             <button
               type="button"

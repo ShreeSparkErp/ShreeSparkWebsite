@@ -338,6 +338,13 @@ a {
   background: rgba(26, 163, 227, 0.16);
 }
 
+.nav a.active,
+.nav.open a.active {
+  color: #FFFFFF;
+  background: rgba(26, 163, 227, 0.24);
+  box-shadow: inset 0 0 0 1px rgba(26, 163, 227, 0.45);
+}
+
 .mobile-nav-cta,
 .btn.mobile-nav-cta {
   display: none;
@@ -3466,6 +3473,13 @@ a {
 
 [data-theme="light"] .nav.open a:active {
   color: #0072B5;
+}
+
+[data-theme="light"] .nav a.active,
+[data-theme="light"] .nav.open a.active {
+  color: #0072B5;
+  background: rgba(15, 128, 185, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(15, 128, 185, 0.35);
 }
 
 [data-theme="light"] .cta .eyebrow {
