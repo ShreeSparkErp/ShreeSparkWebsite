@@ -1082,26 +1082,22 @@ function App() {
               <p className="lead">Looking for jewellery ERP software, custom development or a technology partner? Send us your requirements.</p>
               <div className="contact-items">
                 <div className="contact-item">
-                  <span className="icon"><Icon name="mail" size={20} /></span>
+                  <span className="icon"><Icon name="mail" size={16} /></span>
                   <span><b>Email us</b><a href="mailto:sales@shreesparkinfotech.com">sales@shreesparkinfotech.com</a></span>
                 </div>
                 <div className="contact-item">
-                  <span className="icon"><Icon name="phone" size={20} /></span>
+                  <span className="icon"><Icon name="phone" size={16} /></span>
                   <span><b>Call us</b><a href="tel:+919265713425">+91 92657 13425</a></span>
                 </div>
                 <div className="contact-item">
-                  <span className="icon"><Icon name="map-pin" size={20} /></span>
+                  <span className="icon"><Icon name="map-pin" size={16} /></span>
                   <span>
                     <b>Office Address</b>
-                    518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350
-                    <a
-                      href="https://maps.app.goo.gl/UquSkzt45jeTa1in6"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="map-link-btn"
-                    >
-                      View on Google Maps ↗
-                    </a>
+                    <span className="address-lines">
+                      <span>518, Hilltown Landmark,</span>
+                      <span>Opp. Das Khaman, Nikol Naroda Road,</span>
+                      <span>Nikol, Ahmedabad, Gujarat 382350</span>
+                    </span>
                   </span>
                 </div>
               </div>
@@ -1159,7 +1155,8 @@ function App() {
                     Visit Shree Spark Infotech
                   </h3>
                   <p className="map-card-address">
-                    518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350
+                    <Icon name="map-pin" size={15} />
+                    <span>518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350</span>
                   </p>
                 </div>
                 <a
@@ -1168,7 +1165,7 @@ function App() {
                   rel="noopener noreferrer"
                   className="btn small-btn map-directions-btn"
                 >
-                  Get Directions on Google Maps ↗
+                  Get Directions ↗
                 </a>
               </div>
               <div className="map-embed-container">
@@ -1216,15 +1213,7 @@ function App() {
             </div>
             <address className="footer-contact-details" style={{ fontStyle: 'normal' }}>
               <p className="footer-detail-line">
-                <strong>Address:</strong>{' '}
-                <a
-                  href="https://maps.app.goo.gl/UquSkzt45jeTa1in6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: 'inherit', textDecoration: 'underline' }}
-                >
-                  518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350 ↗
-                </a>
+                <strong>Address:</strong> 518, Hilltown Landmark, Opp. Das Khaman, Nikol Naroda Road, Nikol, Ahmedabad, Gujarat 382350
               </p>
               <p className="footer-detail-line">
                 <strong>Phone:</strong> <a href="tel:+919265713425">+91 92657 13425</a> &nbsp;|&nbsp; <strong>Email:</strong> <a href="mailto:sales@shreesparkinfotech.com">sales@shreesparkinfotech.com</a>
